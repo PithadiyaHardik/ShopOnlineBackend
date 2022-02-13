@@ -1,13 +1,19 @@
 const models = require("../Models");
 const bcryptjs = require("bcryptjs");
+
+
+
+//Login API
 const login = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const hashpass = bcryptjs.hashSync(password);
   const user = await models.UserModel.find({ email: email });
-  if(user) {
+  if(user.length!=0) {
     const current_user = user[0];
   const pass = current_user.password;
+  console.log(current_user)
+  console.log("HEllo")
   let ans = bcryptjs.compareSync(password, pass);
   
     res.send({ status: ans });
@@ -21,10 +27,13 @@ const login = async (req, res) => {
   
 };
 
+
+//Create new account
 const register = (req, res) => {
   const user_data = req.body;
   const password = req.body.password;
   const hashpass = bcryptjs.hashSync(password);
+  console.log(user_data)
   let new_user = models.UserModel({
     email: user_data.email,
     password: hashpass,

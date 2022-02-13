@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const uri =
-  "mongodb+srv://Hardik:Hardik2001@cluster0.yiyhv.mongodb.net/shopping_website?retryWrites=true&w=majority";
+  "mongodb+srv://Hardik:Hardik123@cluster0.yiyhv.mongodb.net/shopping_website?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const userSchema = mongoose.Schema({
@@ -28,8 +28,7 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-
-  displayName:{
+  Name:{
     type:String,
   },
   location: String,
@@ -42,6 +41,8 @@ const productSchema = mongoose.Schema({
       },
     },
   ],
+  Category: String,
+  Quantity:Number, 
   images: String,
   price: Number,
 });
