@@ -4,6 +4,8 @@ const uri =
   "mongodb+srv://Hardik:Hardik123@cluster0.yiyhv.mongodb.net/shopping_website?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
+
+//User model schema
 const userSchema = mongoose.Schema({
   email: {
     type: String,
@@ -19,19 +21,19 @@ const userSchema = mongoose.Schema({
   middle_name: String,
   last_name: String,
 });
+
+//Product schema schema
 const productSchema = mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-  },
   description: {
     type: String,
     required: true,
   },
-  Name:{
+  name:{
     type:String,
   },
-  location: String,
+  stock:Number,
+  colors:[String],
+  warrenty:Number,
   reviews: [
     {
       text: String,
@@ -41,8 +43,7 @@ const productSchema = mongoose.Schema({
       },
     },
   ],
-  Category: String,
-  Quantity:Number, 
+  category: String,
   images: String,
   price: Number,
 });

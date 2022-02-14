@@ -1,6 +1,6 @@
 const express = require("express");
-const router = require("./router");
-const models = require("./Models");
+const router = require("./src/router");
+const models = require("./src/Models");
 const bodyParser = require("body-parser");
 const cors = require('cors');
 

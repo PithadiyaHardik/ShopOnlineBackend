@@ -1,6 +1,7 @@
 const express = require("express");
 const login_register = require("./Controller/Login_Register_controller");
 const product = require("./Controller/Product_Controller");
+const payment= require("./Controller/Payment_Controller");
 const multer = require("multer");
 const path = require("path");
 
@@ -39,5 +40,10 @@ router.get("/allProduct", product.allProduct);
 router.get("/getProductDetails/:id", product.getProductDetails);
 
 router.post("/addReview/:id", product.addReview);
+
+router.post("/addStock/:id",product.addStock)
+
+router.post("/generateOrderId",payment.generateOrderId)
+
 
 module.exports = router;
