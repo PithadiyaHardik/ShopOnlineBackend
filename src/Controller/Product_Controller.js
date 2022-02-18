@@ -3,14 +3,15 @@ const models = require("../Models");
 
 //Adding new product
 const addProduct = (req, res) => {
-  product_data = req.body;
-  img = req.file;
-  console.log(img.path);
+  let product_data = req.body;
+  let img = req.file;
   console.log(product_data);
+  console.log(img.path);
+ 
   const product = models.ProductModel({
     name:product_data.name,
-    description: product_data.details,
-    stock: product_data.stock,
+    description: product_data.description,
+    stock: product_data.Stock,
     category: product_data.category,
     company:product_data.company,
     reviews: [],
@@ -18,6 +19,7 @@ const addProduct = (req, res) => {
     images: img.path,
     price: product_data.price,
   });
+  console.log(product)
   product.save(function (err, product) {
     if (err) console.log(err);
   });
@@ -36,15 +38,15 @@ const allProduct = async (req, res) => {
 //get the individual product details
 const getProductDetails = async (req, res) => {
   id = req.params.id;
-  console.log(typeof id);
-  const product = await models.ProductModel.find({ _id: id });
+  let product = await models.ProductModel.find({ _id: id });
+  product=product[0]
   res.send({ data: product });
 };
 
 
 //adding a review
 const addReview = async (req, res) => {
-  const review = { text: req.body.review };
+  const review = { text: req.body.review,email:req.body.email };
   const id = req.params.id;
   const product = await models.ProductModel.find({ _id: id });
   console.log(product[0]);

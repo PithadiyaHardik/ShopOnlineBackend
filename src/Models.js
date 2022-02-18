@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  role:String,
   phone_number: Number,
   first_name: String,
   middle_name: String,
@@ -32,11 +33,13 @@ const productSchema = mongoose.Schema({
     type:String,
   },
   stock:Number,
-  colors:[String],
+  company:String,
+  colors:String,
   warrenty:Number,
   reviews: [
     {
       text: String,
+      email:String,
       pDate: {
         type: Date,
         default: Date.now,

@@ -16,7 +16,7 @@ const login = async (req, res) => {
   console.log("HEllo")
   let ans = bcryptjs.compareSync(password, pass);
   
-    res.send({ status: ans });
+    res.send({ status: ans,firstname:current_user.first_name,lastname:current_user.last_name });
   
   
   }
@@ -41,17 +41,20 @@ const register = (req, res) => {
     first_name: user_data.first_name,
     middle_name: user_data.middle_name,
     last_name: user_data.last_name,
+    role:"Regular"
   });
   new_user
     .save()
     .then((data) => {
+      res.send({ result: "success" });
       console.log(data);
     })
     .catch((err) => {
+      res.send({ result: "failed" });
       console.log(err);
     });
 
-  res.send({ result: "success" });
+  
 };
 
 module.exports.login = login;
