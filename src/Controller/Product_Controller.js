@@ -66,7 +66,7 @@ const addReview = async (req, res) => {
 //adding stock
 const addStock= async (req, res) => {
 let id= req.params.id;
-const product = await models.ProductModel.find({ _id: id });
+let product = await models.ProductModel.find({ _id: id });
 product=product[0];
 let preStock=product.stock;
 product.stock=preStock+req.body.quantity;
@@ -75,8 +75,101 @@ res.send({m:"Added stock successfully"});
 }
 
 
+//Stock Removal
+const stockRemove=async(req,res) => {
+let id=req.params.id;
+let quantity=req.body.quantity;
+let product = await models.ProductModel.find({ _id: id });
+product=product[0]
+
+if(quantity>product.stock)
+{   console.log("Greater")
+  res.send({ans:false})
+}
+else{
+  // product.stock=product.stock-Number(quantity);
+  let preStock=product.stock;
+
+  product.stock=preStock-quantity
+  console.log(typeof(preStock))
+  console.log(req.body)
+  console.log(preStock-Number(quantity))
+  await product.save((err,result)=>{
+    if(err)
+    {
+      res.send({ans:false})
+    }
+    else{
+      res.send({ans:true})
+    }
+  })
+}
+}
+
+//get cart
+const getCart=async (req,res)=>{
+
+  let user=await models.UserModel.find({email:req.body.email});
+  console.log("Get cart")
+  
+  if(user.length!=0)
+  {   
+    user=user[0]
+    console.log("True")
+    let cart=await models.ProductModel.find({_id:{$in:user.cart}})
+    res.send({ans:true,cart:cart})
+  }
+  else{
+    console.log("False")
+    res.send({ans:false})
+  }
+}
+
+//Remove from cart
+const removeFromCart=async (req,res)=>{
+  let id= req.params.id;
+  let user=await models.UserModel.find({email:req.body.email});
+  console.log("Get cart")
+  
+  if(user.length!=0)
+  {   
+    user=user[0]
+    // console.log("True")
+    // let cart=await models.ProductModel.find({_id:{$in:user.cart}})
+    console.log(req.params.id)
+    let index=user.cart.indexOf(id)
+    let arr1=user.cart.slice(0,index)
+    let arr2=user.cart.slice(index+1)
+    let final=arr1.concat(arr2);
+    console.log(final.length)
+    console.log(user.cart.length)
+    user.cart=final;
+    user.save(async(err,result)=>{
+      if(err)
+      {
+        res.send({ans:false})
+      }
+      else{
+        let cart=await models.ProductModel.find({_id:{$in:final}})
+        res.send({ans:true,cart:cart})
+      }
+    })
+    
+  }
+  else{
+    console.log("False")
+    res.send({ans:false})
+  }
+
+}
+
+
 module.exports.addProduct = addProduct;
 module.exports.addReview = addReview;
 module.exports.getProductDetails = getProductDetails;
 module.exports.allProduct = allProduct;
 module.exports.addStock= addStock;
+module.exports.stockRemove= stockRemove;
+module.exports.getCart= getCart;
+module.exports.removeFromCart= removeFromCart;
+

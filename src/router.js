@@ -2,6 +2,7 @@ const express = require("express");
 const login_register = require("./Controller/Login_Register_controller");
 const product = require("./Controller/Product_Controller");
 const payment= require("./Controller/Payment_Controller");
+const order= require("./Controller/OrderController")
 const multer = require("multer");
 const path = require("path");
 
@@ -44,6 +45,17 @@ router.post("/addReview/:id", product.addReview);
 router.post("/addStock/:id",product.addStock)
 
 router.post("/generateOrderId",payment.generateOrderId)
+
+router.post("/stockRemove/:id",product.stockRemove)
+
+router.post("/addOrder",order.addOrder)
+
+router.post("/addCart",order.addCart)
+
+router.post("/getCart",product.getCart)
+
+router.post("/removeFromCart/:id",product.removeFromCart)
+
 
 
 module.exports = router;

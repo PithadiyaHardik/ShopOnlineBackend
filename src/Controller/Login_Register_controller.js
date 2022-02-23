@@ -16,7 +16,7 @@ const login = async (req, res) => {
   console.log("HEllo")
   let ans = bcryptjs.compareSync(password, pass);
   
-    res.send({ status: ans,firstname:current_user.first_name,lastname:current_user.last_name });
+    res.send({ status: ans,firstname:current_user.first_name,lastname:current_user.last_name,phone:current_user.phone_number });
   
   
   }
@@ -44,15 +44,25 @@ const register = (req, res) => {
     role:"Regular"
   });
   new_user
-    .save()
-    .then((data) => {
-      res.send({ result: "success" });
-      console.log(data);
-    })
-    .catch((err) => {
-      res.send({ result: "failed" });
-      console.log(err);
-    });
+    .save((err,result)=>
+    {   
+      if(err)
+      {   
+        res.send({result:"failed"})
+      }
+      else{
+        res.send({result:"success"})
+      }
+    }
+    )
+    // .then((data) => {
+    //   res.send({ result: "success" });
+    //   console.log(data);
+    // })
+    // .catch((err) => {
+    //   res.send({ result: "failed" });
+    //   console.log(err);
+    // });
 
   
 };

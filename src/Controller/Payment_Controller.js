@@ -12,10 +12,12 @@ const razor=new Razorpay(options);
 
 //generate order id
 const generateOrderId=(req,res)=>{
+    
     var options2={
-        amount:req.body.amount,
+        amount:req.body.amount*100,
         currency:"INR"
     }
+    console.log(options2)
     razor.orders.create(options2,(err,order)=>{
         console.log(err);
         console.log(order);

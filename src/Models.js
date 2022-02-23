@@ -21,6 +21,7 @@ const userSchema = mongoose.Schema({
   first_name: String,
   middle_name: String,
   last_name: String,
+  cart:[{ type: mongoose.Schema.Types.ObjectId, ref: 'ProductModel' }]
 });
 
 //Product schema schema
@@ -32,7 +33,7 @@ const productSchema = mongoose.Schema({
   name:{
     type:String,
   },
-  stock:Number,
+  stock:{type:Number,min:0},
   company:String,
   colors:String,
   warrenty:Number,
@@ -51,8 +52,23 @@ const productSchema = mongoose.Schema({
   price: Number,
 });
 
+
+const OrderSchema=mongoose.Schema({
+  productId: String,
+  email: String,
+  phone: String,
+  date:{type:Date,default:Date.now},
+  paymentId: String,
+  address: String,
+  status:{type:String,default:"Pending"},
+  quantity:Number
+
+})
+
 const UserModel = mongoose.model("UserModel", userSchema);
 const ProductModel = mongoose.model("ProductModel", productSchema);
+const OrderModel=mongoose.model("order",OrderSchema)
 
 module.exports.UserModel = UserModel;
 module.exports.ProductModel = ProductModel;
+module.exports.OrderModel= OrderModel;
