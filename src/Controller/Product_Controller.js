@@ -23,7 +23,7 @@ const addProduct = (req, res) => {
   product.save(function (err, product) {
     if (err) console.log(err);
   });
-  res.send({ m: "Product ended successfully" });
+  res.send({ ans:true,m: "Product ended successfully" });
 };
 
 
@@ -70,8 +70,15 @@ let product = await models.ProductModel.find({ _id: id });
 product=product[0];
 let preStock=product.stock;
 product.stock=preStock+req.body.quantity;
-await product.save()
-res.send({m:"Added stock successfully"});
+await product.save((err,result)=>{
+  if(err)
+  {
+    res.send({ans:false})
+  }
+  else{
+    res.send({ans:true})
+  }
+})
 }
 
 

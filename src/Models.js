@@ -61,7 +61,8 @@ const OrderSchema=mongoose.Schema({
   paymentId: String,
   address: String,
   status:{type:String,default:"Pending"},
-  quantity:Number
+  quantity:Number,
+  productName: String,
 
 })
 

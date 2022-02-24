@@ -5,6 +5,7 @@ const payment= require("./Controller/Payment_Controller");
 const order= require("./Controller/OrderController")
 const multer = require("multer");
 const path = require("path");
+const MiddleWare = require("./MiddleWare")
 
 const storageSettings = multer.diskStorage({
   destination: "images",
@@ -34,7 +35,11 @@ router.post("/login", login_register.login);
 
 router.post("/register", login_register.register);
 
-router.post("/addProduct", upload.single("image"), product.addProduct);
+router.post("/allUsers",MiddleWare.superAdminAccess,login_register.allUsers);
+
+router.post("/updateRole", MiddleWare.superAdminAccess,login_register.updateRole);
+
+router.post("/addProduct",upload.single("image"),MiddleWare.adminAccess, product.addProduct);
 
 router.get("/allProduct", product.allProduct);
 
@@ -42,7 +47,7 @@ router.get("/getProductDetails/:id", product.getProductDetails);
 
 router.post("/addReview/:id", product.addReview);
 
-router.post("/addStock/:id",product.addStock)
+router.post("/addStock/:id",MiddleWare.adminAccess,product.addStock)
 
 router.post("/generateOrderId",payment.generateOrderId)
 
@@ -56,6 +61,11 @@ router.post("/getCart",product.getCart)
 
 router.post("/removeFromCart/:id",product.removeFromCart)
 
+router.post("/getUsersOrders",order.getUsersOrders)
+
+router.get("/allOrders",MiddleWare.adminAccess,order.allOrders)
+
+router.post("/updateStatus",order.updateStatus)
 
 
 module.exports = router;
