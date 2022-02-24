@@ -1,6 +1,5 @@
 const models = require("../Models");
 const addOrder=async (req,res)=>{
-    console.log(req.body)
     const order=models.OrderModel({
         email:req.body.email,
         phone:req.body.phone,
@@ -32,7 +31,7 @@ const allOrders=async(req,res)=>{
 
 
 const addCart=async (req,res)=>{
-    console.log("Add cart")
+
     let user=await models.UserModel.find({email:req.body.email},)
     user=user[0]
     if(user.cart.includes(req.body.id))
