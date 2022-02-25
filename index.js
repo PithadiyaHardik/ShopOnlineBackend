@@ -8,7 +8,7 @@ let PORT=process.env.PORT || 8888
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:3000'
+  origin: 'https://shoponlinefront.herokuapp.com'
 }));
 app.use(express.static(__dirname))
 app.use(express.json());
