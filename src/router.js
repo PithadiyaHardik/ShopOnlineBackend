@@ -63,7 +63,7 @@ router.post("/removeFromCart/:id",product.removeFromCart)
 
 router.post("/getUsersOrders",order.getUsersOrders)
 
-router.get("/allOrders",MiddleWare.adminAccess,order.allOrders)
+router.post("/allOrders",MiddleWare.adminAccess,order.allOrders)
 
 router.post("/updateStatus",order.updateStatus)
 

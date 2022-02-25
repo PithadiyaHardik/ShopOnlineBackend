@@ -3,9 +3,10 @@ const models = require("./Models");
 const adminAccess=async (req,res,next) =>{
     let email=req.body.email;
     let password=req.body.admin;
-    console.log(email+" "+password);
     let user=await models.UserModel.find({email:email,password:password,role:"admin"});
-    if(user.length!=0)
+    let userSuper=await models.UserModel.find({email:email,password:password,role:"SuperAdmin"});
+
+    if(user.length!=0||userSuper.length!=0)
     {
         next();
     }
