@@ -1,7 +1,9 @@
 const Razorpay=require('razorpay')
+require('dotenv').config()
+
 let options={
-    key_id:"rzp_test_DnK1IvY3O5N98N",
-    key_secret:"o58moAgKrOw9VhzPgSWSYngu"
+    key_id:process.env.Razor_key,
+    key_secret:process.env.Razor_secret
 }
 
 //Key_ID
